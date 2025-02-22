@@ -10,7 +10,7 @@ export const userRouter = express.Router();
         const allUsers: UnitUser[] = await database.findAll();
 
         if (!allUsers) {
-            res.status(StatusCodes.NOT_FOUND).json({ message: "No user at this time..." });
+            res.status(StatusCodes.NOT_FOUND).json({ message: `No user at this time...` });
         }
 
          res.status(StatusCodes.OK).json({ total_user: allUsers.length, allUsers });
@@ -57,13 +57,13 @@ userRouter.post("/login", async (req, res) => {
         const {email, password} = req.body
 
         if(!email || !password){
-             res.status(StatusCodes.BAD_REQUEST).json({ error: `Please provide all the required paramaters..` });
+             res.status(StatusCodes.BAD_REQUEST).json({ error: "Please provide all the required paramaters.." });
         }
 
         const user = await database.findByEmail(email)
 
         if (!user) {
-             res.status(StatusCodes.NOT_FOUND).json({ error: `No user exist with the email provided..` });
+             res.status(StatusCodes.NOT_FOUND).json({ error: "No user exist with the email provided.." });
         }
         const comparePassword = await database.comparePassword(email, password)
 
